@@ -1,15 +1,17 @@
 package com.maurosantos.videoaulagooglemaps;
 
 import android.os.Bundle;
+import android.widget.Toast;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.UiSettings;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 
-public class MapsFragment extends SupportMapFragment implements OnMapReadyCallback {
+public class MapsFragment extends SupportMapFragment implements OnMapReadyCallback, GoogleMap.OnMapClickListener {
 
     private GoogleMap mMap;
 
@@ -18,7 +20,6 @@ public class MapsFragment extends SupportMapFragment implements OnMapReadyCallba
         super.onCreate(savedInstanceState);
         getMapAsync(this);
     }
-
 
     /**
      * Manipulates the map once available.
@@ -33,9 +34,21 @@ public class MapsFragment extends SupportMapFragment implements OnMapReadyCallba
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
 
-        // Add a marker in Sydney and move the camera
-        LatLng sydney = new LatLng(-34, 151);
-        mMap.addMarker(new MarkerOptions().position(sydney).title("Marker in Sydney"));
-        mMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));
+        mMap.setOnMapClickListener(this);
+
+        UiSettings mMapUiSettings = mMap.getUiSettings();
+        mMapUiSettings.setZoomControlsEnabled(true);
+        mMapUiSettings.setMyLocationButtonEnabled(true);
+
+        // Add a marker in SES/TO and move the camera
+        LatLng sesTO = new LatLng(-10.1868996, -48.336322);
+
+        mMap.addMarker(new MarkerOptions().position(sesTO).title("SES/TO"));
+        mMap.moveCamera(CameraUpdateFactory.newLatLng(sesTO));
+    }
+
+    @Override
+    public void onMapClick(LatLng latLng) {
+        Toast.makeText(getActivity(), "Coordenadas: " + latLng.toString(), Toast.LENGTH_SHORT).show();
     }
 }
