@@ -8,5 +8,10 @@
             android:id="@+id/nav_exemplobasico"
             android:icon="@drawable/ic_menu_camera"
             android:title="Exemplo básico" />
+
+        <item
+            android:id="@+id/nav_provider_v1"
+            android:icon="@drawable/ic_menu_camera"
+            android:title="Provider V1" />
     </group>
 </menu>
